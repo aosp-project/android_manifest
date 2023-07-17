@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <remote  name="github"
+           fetch="https://github.com/" />
+
+  <remote  name="gitlab"
+           fetch="https://gitlab.com/" />
+
+  <remote  name="custom-project"
+           fetch="https://github.com/aosp-project/"
+           revision="refs/heads/aosp-13.0" />
+
+  <!-- build repos -->
+  <project path="build/make" name="android_build" groups="pdk" remote="custom-project" >
+    <linkfile src="CleanSpec.mk" dest="build/CleanSpec.mk" />
+    <linkfile src="buildspec.mk.default" dest="build/buildspec.mk.default" />
+    <linkfile src="core" dest="build/core" />
+    <linkfile src="envsetup.sh" dest="build/envsetup.sh" />
+    <linkfile src="target" dest="build/target" />
+    <linkfile src="tools" dest="build/tools" />
+  </project>
+  <!-- <project path="build/blueprint" name="android_build_blueprint" groups="pdk,tradefed" remote="custom-project"/> -->
+  <project path="build/soong" name="android_build_soong" groups="pdk,tradefed" remote="custom-project" >
+    <linkfile src="root.bp" dest="Android.bp" />
+    <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
+  </project>
+
+  <project path="bionic" name="android_bionic" groups="pdk" remote="custom-project" />
+  <project path="manifest" name="android_manifest" remote="custom-project" />
+
+  <!-- bootable repos -->
+  <project path="bootable/recovery" name="android_bootable_recovery" remote="custom-project" />
+
+  <!-- device repos -->
+  <project path="device/aosp/sepolicy" name="android_device_aosp_sepolicy" remote="custom-project" />
+  <project path="device/qcom/sepolicy_vndr" name="android_device_qcom_sepolicy_vndr" remote="custom-project" />
+  <project path="device/qcom/sepolicy-legacy" name="android_device_qcom_sepolicy-legacy" remote="custom-project" />
+  <project path="device/qcom/sepolicy-legacy-um" name="android_device_qcom_sepolicy" remote="custom-project" revision="aosp-13.0-legacy-um" />
+  <project path="device/qcom/sepolicy_vndr-legacy-um" name="android_device_qcom_sepolicy_vndr" remote="custom-project" revision="aosp-13.0-legacy-um" />
+
+  <!-- framework repos -->
+  <project path="frameworks/av" name="android_frameworks_av" remote="custom-project" />
+  <project path="frameworks/base" name="android_frameworks_base" remote="custom-project" />
+  <project path="frameworks/native" name="android_frameworks_native" remote="custom-project" />
+
+  <!-- system repos -->
+  <project path="system/tools/mkbootimg" name="android_system_tools_mkbootimg" remote="custom-project" />
+
+  <!-- vendor repos -->
+  <project path="vendor/aosp" name="android_vendor_aosp" remote="custom-project" />
+
+  <!-- packages repos -->
+  <project path="packages/resources/devicesettings" name="android_packages_resources_devicesettings" remote="custom-project" />
+  <project path="packages/modules/Wifi" name="android_packages_modules_Wifi" remote="custom-project" />
+  
+  <!-- hardware repos -->
+  <project path="hardware/interfaces" name="android_hardware_interfaces" remote="custom-project" />
+  <project path="hardware/libhardware" name="android_hardware_libhardware" remote="custom-project" />
+  <project path="hardware/qcom/audio" name="android_hardware_qcom_audio" remote="custom-project" />
+  <project path="hardware/qcom/display" name="android_hardware_qcom_display" remote="custom-project" />
+  <project path="hardware/qcom/media" name="android_hardware_qcom_media" remote="custom-project" />
+  <project path="hardware/qcom/wlan" name="android_hardware_qcom_wlan" remote="custom-project" />
+  <project path="hardware/qcom/sm8150/data/ipacfg-mgr" name="android_hardware_qcom_sm8150_data_ipacfg-mgr" remote="custom-project" />
+  <project path="hardware/qcom/sm8150/display" name="android_hardware_qcom_sm8150_display" remote="custom-project" />
+  <project path="hardware/qcom/sm8150/media" name="android_hardware_qcom_sm8150_media" remote="custom-project" />
+
+  <!-- hardware caf repos -->
+  <project path="hardware/qcom-caf/bootctrl" name="android_hardware_qcom_bootctrl" remote="custom-project" revision="aosp-13.0-caf" />
+  <project path="hardware/qcom-caf/common" name="android_hardware_qcom-caf_common" remote="custom-project" >
+    <!-- add guard for AOSP hardware/qcom dir -->
+    <linkfile src="os_pickup_aosp.mk" dest="hardware/qcom/Android.mk" />
+    <!-- add guards for CAF repositories -->
+    <linkfile src="os_pickup.bp" dest="hardware/qcom-caf/msm8998/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8998/Android.mk" />
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8150/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8150/Android.mk" />
+    <linkfile src="os_pickup.bp" dest="vendor/nxp/opensource/pn5xx/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="vendor/nxp/opensource/pn5xx/Android.mk" />
+    <linkfile src="os_pickup.bp" dest="vendor/nxp/opensource/sn100x/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="vendor/nxp/opensource/sn100x/Android.mk" />
+  </project>
+  <project path="hardware/qcom-caf/bt" name="android_hardware_qcom_bt" remote="custom-project" revision="aosp-13.0-caf" />
+  <project path="hardware/qcom-caf/msm8998/audio" name="android_hardware_qcom_audio" remote="custom-project" revision="aosp-13.0-caf-msm8998" />
+  <project path="hardware/qcom-caf/msm8998/display" name="android_hardware_qcom_display" remote="custom-project" revision="aosp-13.0-caf-msm8998" />
+  <project path="hardware/qcom-caf/msm8998/media" name="android_hardware_qcom_media" remote="custom-project" revision="aosp-13.0-caf-msm8998" />
+  <project path="hardware/qcom-caf/sm8150/audio" name="android_hardware_qcom_audio" remote="custom-project" revision="aosp-13.0-caf-sm8150" />
+  <project path="hardware/qcom-caf/sm8150/display" name="android_hardware_qcom_display" remote="custom-project" revision="aosp-13.0-caf-sm8150" />
+  <project path="hardware/qcom-caf/sm8150/media" name="android_hardware_qcom_media" remote="custom-project" revision="aosp-13.0-caf-sm8150" />
+  <project path="hardware/qcom-caf/thermal" name="android_hardware_qcom_thermal" remote="custom-project" />
+  <project path="hardware/qcom-caf/vr" name="android_hardware_qcom_vr" remote="custom-project" />
+  <project path="hardware/qcom-caf/wlan" name="android_hardware_qcom_wlan" remote="custom-project" revision="aosp-13.0-caf" />
+  <project path="vendor/codeaurora/telephony" name="android_vendor_codeaurora_telephony" remote="custom-project" />
+  <project path="vendor/qcom/opensource/audio" name="android_vendor_qcom_opensource_audio" remote="custom-project" />
+  <project path="vendor/qcom/opensource/audio-hal/st-hal" name="android_vendor_qcom_opensource_audio-hal_st-hal" remote="custom-project" />
+  <project path="vendor/qcom/opensource/commonsys-intf/display" name="android_vendor_qcom_opensource_display-commonsys-intf" remote="custom-project" />
+  <project path="vendor/qcom/opensource/commonsys/display" name="android_vendor_qcom_opensource_display-commonsys" remote="custom-project" />
+  <project path="vendor/qcom/opensource/display" name="android_vendor_qcom_opensource_display" remote="custom-project" />
+  <project path="vendor/qcom/opensource/fm-commonsys" name="android_vendor_qcom_opensource_fm-commonsys" remote="custom-project" />
+  <project path="vendor/qcom/opensource/data-ipa-cfg-mgr" name="android_vendor_qcom_opensource_data-ipa-cfg-mgr" remote="custom-project" />
+  <project path="vendor/qcom/opensource/dataservices" name="android_vendor_qcom_opensource_dataservices" remote="custom-project" />
+  <project path="vendor/qcom/opensource/healthd-ext" name="android_vendor_qcom_opensource_healthd-ext" remote="custom-project" />
+  <project path="vendor/qcom/opensource/interfaces" name="android_vendor_qcom_opensource_interfaces" remote="custom-project" />
+  <project path="vendor/qcom/opensource/libfmjni" name="android_vendor_qcom_opensource_libfmjni" remote="custom-project" />
+  <project path="vendor/qcom/opensource/power" name="android_vendor_qcom_opensource_power" remote="custom-project" />
+  <project path="vendor/qcom/opensource/thermal-engine" name="android_vendor_qcom_opensource_thermal-engine" remote="custom-project" />
+  <project path="vendor/qcom/opensource/usb" name="android_vendor_qcom_opensource_usb" remote="custom-project" />
+  <project path="vendor/qcom/opensource/vibrator" name="android_vendor_qcom_opensource_vibrator" remote="custom-project" />
+  <project path="vendor/qcom/opensource/wfd-commonsys" name="android_vendor_qcom_opensource_wfd-commonsys" remote="custom-project" />
+
+    <!-- NXP additions -->
+  <project path="vendor/nxp/nfc" name="android_vendor_nxp_nfc" remote="custom-project" />
+  <project path="vendor/nxp/secure_element" name="android_vendor_nxp_secure_element" remote="custom-project" />
+  <project path="vendor/nxp/secure_element_extns" name="android_vendor_nxp_secure_element_extns" remote="custom-project" />
+
+  <!-- prebuilt repos -->
+  <project path="prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9" name="android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9" clone-depth="1" remote="custom-project" />
+  <project path="prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9" name="android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9" clone-depth="1" remote="custom-project" />
+  <project path="prebuilts/kernel-build-tools" name="kernel/prebuilts/build-tools" clone-depth="1" remote="aosp" revision="refs/tags/android-13.0.0_r0.85" />
+  <project path="prebuilts/tools-extras" name="android_prebuilts_tools-extras" remote="custom-project" />
+
+  <!-- tools repos -->
+  <project path="tools/extract-utils" name="android_tools_extract-utils" remote="custom-project" />
+
+</manifest>
